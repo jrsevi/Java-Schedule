@@ -7,6 +7,29 @@
 var today= dayjs();
 $("#currentDay").text(today.format("dddd, MMMM D, YYYY"));
 
+
+function classId(){
+    $("time-block").each(function(){
+        var time = dayjs().hour();
+        var blockTime = parseInt($(this).attr("id").split("-")[1]);
+        console.log(time);
+        if (blockTime < time){
+            $(this).addClass("past");
+        } else if (blockTime == time){
+            $(this).addClass("present");
+        } else {
+            $(this).addClass("future");
+        }
+});
+}
+
+classId();
+
+
+
+
+
+
 $(function () {
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
