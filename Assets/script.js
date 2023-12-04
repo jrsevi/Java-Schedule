@@ -4,15 +4,18 @@
 
 
 //* Current Date *//
+function currentDay(){
 var today= dayjs();
 $("#currentDay").text(today.format("dddd, MMMM D, YYYY"));
+}
+currentDay();
 
-
+//* This adds the past, present, or future class to the time slots on the schedule*//
 function classId(){
-    $("time-block").each(function(){
+    $(".time-block").each(function(){
         var time = dayjs().hour();
         var blockTime = parseInt($(this).attr("id").split("-")[1]);
-        console.log(time);
+        console.log(blockTime);
         if (blockTime < time){
             $(this).addClass("past");
         } else if (blockTime == time){
@@ -20,9 +23,8 @@ function classId(){
         } else {
             $(this).addClass("future");
         }
-});
+    });
 }
-
 classId();
 
 
@@ -30,7 +32,45 @@ classId();
 
 
 
+
 $(function () {
+
+    //* Current Date *//
+function currentDay(){
+    var today= dayjs();
+    $("#currentDay").text(today.format("dddd, MMMM D, YYYY"));
+    }
+    currentDay();
+    
+    //* This adds the past, present, or future class to the time slots on the schedule*//
+    function classId(){
+        $(".time-block").each(function(){
+            var time = dayjs().hour();
+            var blockTime = parseInt($(this).attr("id").split("-")[1]);
+            console.log(blockTime);
+            if (blockTime < time){
+                $(this).addClass("past");
+            } else if (blockTime == time){
+                $(this).addClass("present");
+            } else {
+                $(this).addClass("future");
+            }
+        });
+    }
+    classId();
+
+    //* This saves the user input to local storage*//
+ function saveInput(){
+        $(".saveBtn").on("click", function(){
+            var time = $(this).parent().attr("id");
+            var input = $(this).siblings(".description").val();
+            localStorage.setItem(time, input);
+        });
+    }
+    saveInput();
+
+    //* This gets the user input from local storage*//
+
     // TODO: Add a listener for click events on the save button. This code should
     // use the id in the containing time-block as a key to save the user input in
     // local storage. HINT: What does `this` reference in the click listener
